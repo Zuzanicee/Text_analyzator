@@ -53,24 +53,22 @@ else:
     exit()
 #pokyn pro výběr textu
 choosen_text = 0
-for number in range(3):
-    choice = input(f"Enter a number btw. 1 and {len(TEXTS)} texts to select: ") #len(TEXTS) jsem zadala, kdyby se změnil počet textů
-    if not choice.isdigit():
-        print(f"{choice} is not a number. Ending app...")
-        exit()
-    choice = int(choice)
-    if choice < 1 or choice > len(TEXTS):
-        print(f"{choice} is not btw numbers 1 and {len(TEXTS)} Ending app...")
-        exit()
-    else:
-        choosen_text = TEXTS[choice - 1]
-    break
+choice = input(f"Enter a number btw. 1 and {len(TEXTS)} texts to select: ") #len(TEXTS) jsem zadala, kdyby se změnil počet textů
+if not choice.isdigit():
+    print(f"{choice} is not a number. Ending app...")
+    exit()
+choice = int(choice)
+if choice < 1 or choice > len(TEXTS):
+    print(f"{choice} is not btw numbers 1 and {len(TEXTS)} Ending app...")
+    exit()
+else:
+    choosen_text = TEXTS[choice - 1]
 #odpovědi na otázky v zadání
 splited_text = choosen_text.split()
 splited_text_clear = [word.strip(',:.?!') for word in splited_text] #slova s pomlčkou beru jako jedno slovo
 numbers_of_length = [len(word) for word in splited_text_clear]
 title_case = [word for word in splited_text_clear
-              if word.istitle() and word.isalpha()]
+              if word.istitle()]
 upper_case = [word for word in splited_text_clear
               if word.isupper() and word.isalpha()]
 lower_case = [word for word in splited_text_clear
@@ -85,19 +83,19 @@ lowercase_words = len(lower_case)
 numeric_strings = len(numeric)
 numbers_sum = sum(numeric_int)
 #výpis odpovědí na zadání
-print(f"{'-'*50}")
+print("-"*50)
 print(f"There are {num_words} words in the selected text.")
 print(f"There are {titlecase_words} titlecase words.")
 print(f"There are {uppercase_words} uppercase words.")
 print(f"There are {lowercase_words} lowercase words.")
 print(f"There are {numeric_strings} numeric strings.")
 print(f"The sum of all the numbers: {numbers_sum}")
-print(f"{'-'*50}")
+print("-"*50)
 length_count = {}
 for length in numbers_of_length:
     length_count[length] = length_count.get(length, 0) + 1
 #graf
-print(f"LEN|  OCCURENCES  |NR.")
-print(f"{'-'*50}")
+print("LEN|  OCCURENCES  |NR.")
+print("-"*50)
 for length in sorted(length_count.keys()):
     print(f" {length:>2}|{'*' * length_count[length]}{' ' * (12 - length_count[length])}|{length_count[length]}")
